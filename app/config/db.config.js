@@ -6,6 +6,12 @@ const sequelize = new Sequelize(env.database, env.username, env.password, {
   dialect: env.dialect,
   operatorsAliases: false,
  
+  dialectOptions: {
+    ssl: {
+        rejectUnauthorized: false
+    }
+  }
+
   // pool: {
   //   max: env.max,
   //   min: env.pool.min,

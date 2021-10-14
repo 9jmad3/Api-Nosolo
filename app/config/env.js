@@ -10,9 +10,9 @@
   //   	  acquire: 30000,
   //   	  idle: 10000
   // },
-  ssl: {
-      rejectUnauthorized: false,
-    }
+  // ssl: {
+  //     rejectUnauthorized: false,
+  //   }
 };
 module.exports = env;
 
