@@ -27,11 +27,16 @@ db.sequelize.sync({ force: true }).then(() => {
 });
 
 // Create a Server
-var server = app.listen(3001, "127.0.0.1", function () {
-	var host = server.address().address
-	var port = server.address().port
-	console.log("App listening at http://%s:%s", host, port)
-})
+// var server = app.listen(3001, "127.0.0.1", function () {
+// 	var host = server.address().address
+// 	var port = server.address().port
+// 	console.log("App listening at http://%s:%s", host, port)
+// })
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${ PORT }`);
+});
 
 
 function initial() {
