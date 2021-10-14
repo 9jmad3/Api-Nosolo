@@ -1,0 +1,44 @@
+{
+  "name": "nodejs-jwt-auth",
+  "version": "1.0.0",
+  "description": "Nodejs-JWT-Authentication-with-MySQL-Sequelize-ORM",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sstart": "nodemon server.js",
+    "start": "node ."
+  },
+  "keywords": [
+    "Nodejs",
+    "Express",
+    "JWT",
+    "Sequelize",
+    "MySQL",
+    "Authentication"
+  ],
+  "author": "José Manuel Alejandro Domínguez",
+  "license": "ISC",
+  "dependencies": {
+    "autodoc-gen": "^1.0.5",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.2.5",
+    "node-cache": "^5.1.2",
+    "nodemon": "^2.0.7",
+    "pg": "^8.6.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^4.13.5",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.1.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fabirguez/Api-gest-celt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fabirguez/Api-gest-celt/issues"
+  },
+  "homepage": "https://github.com/fabirguez/Api-gest-celt#readme"
+}
