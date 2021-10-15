@@ -1,9 +1,6 @@
 const db = require('../config/db.config.js');
 const config = require('../config/config.js');
 const User = db.user;
-const Role = db.role;
-const Vehicle = db.vehicle;
-const Op = db.Sequelize.Op;
 
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
@@ -17,12 +14,12 @@ var bcrypt = require('bcryptjs');
  */
 exports.newUser = (req, res) => {
 	// Save User to Database
-	console.log("Processing func -> newUser");
+	console.log(req.body);
 
 	User.create({
 		email: req.body.email,
 		username: req.body.username,
-		rol_id: 2,
+		rolId: 2,
 		password: bcrypt.hashSync(req.body.password, 8),
 	}).then(() => {
 		res.json({ok: true})
@@ -53,20 +50,17 @@ exports.newUser = (req, res) => {
 	})
 }
 
-
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 exports.getUsersById = (req, res) => {
-	
 	let listUserId = req.body;
-
-	console.log(listUserId);
 
 	User.findAll({
 		where: {
 			id: listUserId
-		},
-		include: {
-			model: Vehicle,
-			where: vehicleId = req.body.vehicleId
 		}
 	}).then(user => {
 		res.status(200).json({
@@ -82,11 +76,6 @@ exports.getUsersById = (req, res) => {
 }
 
 /**
- * 
- * Método de inicio de sesión, busca y comprueba que el usuario exista y la contraseña sea correcta.
- * Si el inicio de sesión es correcto, crea un token y devuelve el mismo junto con el id del usuario, 
- * el token, el nombre, el mail y el nombre de usuario.
- * En caso de no poder iniciar sesión, devuelve un mensaje de error y no crea el token
  * 
  * @param {*} req 
  * @param {*} res 
@@ -122,51 +111,9 @@ exports.signin = (req, res) => {
 
 		res.status(200).send({ auth: true, accessToken: token, user: { id: user.id, name: user.name, email: user.email, username: user.username } });
 
-		// res.status(200).send({ auth: true, accessToken: token });
-
 	}).catch(err => {
 		res.status(500).send('Errorr -> ' + err);
 	});
-}
-
-
-/**
- * 
- * Método que lista todos los usuarios, junto con su respectivo rol, stock, ordenes y albaranes
- * que tenga.
- * 
- * @param {*} req 
- * @param {*} res 
- */
-exports.listUser = (req, res) => {
-	User.findAll({
-		attributes: ['id', 'name', 'surname', 'username', 'enabled', 'email', 'generic_one', 'generic_two', 'createdAt', 'updatedAt'],
-		include: [{
-			model: Role,
-		},
-		{
-			model: Stock
-		},
-		{
-			model: DelNot,
-			as: 'userDel'
-		},
-		{
-			model: Job,
-			as: 'userWorker'
-		}]
-
-	}).then(user => {
-		res.status(200).json({
-			"description": "Lista de usuarios",
-			"user": user
-		});
-	}).catch(err => {
-		res.status(500).json({
-			"description": "No puedes acceder a la lista de usuarios",
-			"error": err
-		});
-	})
 }
 
 

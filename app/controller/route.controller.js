@@ -1,11 +1,7 @@
-const { Sequelize } = require('../config/db.config.js');
 const db = require('../config/db.config.js');
-const Op = Sequelize.Op;
-const operatorsAliases = { $eq: Op.eq }
-const userModel = require('../model/user.model.js');
 const User = db.user;
 const Route = db.route;
-const Assistant = db.assistant;
+
 
 /**
  * 
@@ -65,30 +61,30 @@ exports.listRoutes = (req, res) => {
  * @param {*} res 
  */
 exports.newRoute = (req, res) => {
-	console.log("Processing func -> New Route");
-
-    Route.create({
-        title: req.body.title,
-        type: req.body.type,
-        status: req.body.status,
-        cc: req.body.cc,
-        km: req.body.km,
-        province: req.body.province,
-        userId: req.body.userId,
-		date: req.body.date,
-		hour: req.body.hour,
-        description: req.body.description
-    }).then(() => {
-        res.json({ok: true})
-    }).catch(err => {
-        res.status(500).send(err);
-    })
+	Route.create({
+			title: req.body.title,
+			type: req.body.type,
+			status: req.body.status,
+			cc: req.body.cc,
+			km: req.body.km,
+			province: req.body.province,
+			userId: req.body.userId,
+			date: req.body.date,
+			hour: req.body.hour,
+			description: req.body.description
+		}).then(() => {
+			res.json({ok: true})
+		}).catch(err => {
+			res.status(500).send(err);
+		})
 }
 
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ */
 exports.cancelledRoute = (req, res) => {
-
-	console.log("Processing func -> cancelledRoute");
-
 	Route.findOne({
 		where: {
 			id: req.params.id
